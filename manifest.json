@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "MarketLens",
+  "version": "0.1.0",
+  "description": "Universal, ToS-safe Facebook Marketplace assistant: filter noise, calculate profit, draft listings with AI.",
+  "icons": {
+    "16": "assets/icon16.png",
+    "32": "assets/icon32.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "permissions": ["storage", "activeTab", "alarms", "notifications"],
+  "host_permissions": ["https://www.facebook.com/*"],
+  "action": {
+    "default_title": "MarketLens",
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.facebook.com/*"],
+      "js": ["content.js"],
+      "css": ["assets/content.css"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["data/*", "assets/*"],
+      "matches": ["https://www.facebook.com/*"]
+    }
+  ]
+}

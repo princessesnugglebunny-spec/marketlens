@@ -1,0 +1,4 @@
+[data-mlf-hidden]{display:none!important}
+[data-mlf-seen]{opacity:0.35;transition:opacity .2s}
+.mlf-fab{transition:transform .15s}
+.mlf-fab:hover{transform:scale(1.05)}

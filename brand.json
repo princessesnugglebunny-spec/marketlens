@@ -1,0 +1,13 @@
+{
+  "name": "MarketLens",
+  "slug": "marketlens",
+  "tagline": "See the deal. Skip the noise.",
+  "domain": "marketlens.example",
+  "colors": {
+    "primary": "#12805c",
+    "accent": "#38bdf8",
+    "dark": "#0f172a",
+    "light": "#f8fafc"
+  },
+  "packagePrefix": "mlf"
+}
