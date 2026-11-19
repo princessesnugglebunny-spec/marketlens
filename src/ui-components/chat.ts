@@ -1,5 +1,5 @@
 /**
- * Minimal chat web component. Reads API config from chrome.storage.
+ * Chat web component with streaming support via background worker.
  */
 class MlfChat extends HTMLElement {
   private messages: { role: string; content: string }[] = [];

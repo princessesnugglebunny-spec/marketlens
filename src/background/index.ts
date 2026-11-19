@@ -31,6 +31,41 @@ export async function chatComplete(opts: ChatOptions): Promise<string> {
   return data.choices?.[0]?.message?.content ?? '';
 }
 
+/** Streaming chat completions (returns full text via SSE aggregation). */
+export async function chatCompleteStream(opts: ChatOptions, onChunk: (chunk: string) => void): Promise<string> {
+  const url = opts.baseUrl.replace(/\/$/, '') + '/chat/completions';
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${opts.apiKey}`,
+    },
+    body: JSON.stringify({ model: opts.model, messages: opts.messages, stream: true }),
+  });
+  if (!res.ok) throw new Error(`chat failed: ${res.status}`);
+  const reader = res.body?.getReader();
+  if (!reader) throw new Error('no stream');
+  const decoder = new TextDecoder();
+  let full = '';
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    const text = decoder.decode(value, { stream: true });
+    for (const line of text.split('\n')) {
+      const trimmed = line.trim();
+      if (!trimmed.startsWith('data:')) continue;
+      const payload = trimmed.slice(5).trim();
+      if (payload === '[DONE]') continue;
+      try {
+        const json = JSON.parse(payload) as { choices?: { delta?: { content?: string } }[] };
+        const chunk = json.choices?.[0]?.delta?.content;
+        if (chunk) { full += chunk; onChunk(chunk); }
+      } catch { /* ignore parse errors */ }
+    }
+  }
+  return full;
+}
+
 chrome.runtime.onInstalled.addListener(() => {
   chrome.alarms.create('mlf-monitor', { periodInMinutes: 15 });
 });
