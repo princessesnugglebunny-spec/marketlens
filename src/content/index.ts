@@ -9,6 +9,7 @@ import { injectProfitPanel } from './profit/panel';
 import { injectDraftPanel } from './draft-panel';
 import { injectFormFillButton } from './assist/formfill';
 import { injectReplyDrafts } from './assist/replydraft';
+import { initAssistMode } from './assist/assistmode';
 
 const ITEM_LINK = 'a[href*="/marketplace/item/"]';
 
@@ -237,6 +238,7 @@ async function init(): Promise<void> {
   injectDraftPanel();
   void injectFormFillButton();
   void injectReplyDrafts();
+  void initAssistMode();
   scan();
   const obs = new MutationObserver(() => scan());
   obs.observe(document.body, { childList: true, subtree: true });
