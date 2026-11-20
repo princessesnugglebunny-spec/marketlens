@@ -7,6 +7,8 @@ import { get, set } from '../lib/storage';
 import '../ui-components/chat';
 import { injectProfitPanel } from './profit/panel';
 import { injectDraftPanel } from './draft-panel';
+import { injectFormFillButton } from './assist/formfill';
+import { injectReplyDrafts } from './assist/replydraft';
 
 const ITEM_LINK = 'a[href*="/marketplace/item/"]';
 
@@ -233,6 +235,8 @@ async function init(): Promise<void> {
   mountShell();
   void injectProfitPanel();
   injectDraftPanel();
+  void injectFormFillButton();
+  void injectReplyDrafts();
   scan();
   const obs = new MutationObserver(() => scan());
   obs.observe(document.body, { childList: true, subtree: true });

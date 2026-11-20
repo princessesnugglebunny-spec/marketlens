@@ -27,14 +27,17 @@ class MlfChat extends HTMLElement {
       input.value = '';
       this.messages.push({ role: 'user', content: text });
       log.innerHTML += `<div><b>You:</b> ${escapeHtml(text)}</div>`;
+      const replyDiv = document.createElement('div');
+      replyDiv.innerHTML = '<b>Agent:</b> ';
+      log.appendChild(replyDiv);
       const chromeApi = (globalThis as unknown as { chrome?: typeof chrome }).chrome;
       const resp = await chromeApi?.runtime?.sendMessage?.({
         type: 'chat',
         payload: { baseUrl: '', apiKey: '', model: '', messages: this.messages },
       });
       const reply = resp?.ok ? resp.text : `Error: ${resp?.error ?? 'no response'}`;
+      replyDiv.innerHTML = `<b>Agent:</b> ${escapeHtml(reply)}`;
       this.messages.push({ role: 'assistant', content: reply });
-      log.innerHTML += `<div><b>Agent:</b> ${escapeHtml(reply)}</div>`;
     });
   }
 }
