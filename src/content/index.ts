@@ -12,6 +12,7 @@ import { injectReplyDrafts } from './assist/replydraft';
 import { initAssistMode } from './assist/assistmode';
 import { injectBulkImportButton } from './assist/bulkimportui';
 import { injectConvoBrowser } from './assist/convoBrowser';
+import { injectSniperUI } from './assist/sniperui';
 
 const ITEM_LINK = 'a[href*="/marketplace/item/"]';
 
@@ -243,6 +244,7 @@ async function init(): Promise<void> {
   void initAssistMode();
   injectBulkImportButton();
   void injectConvoBrowser();
+  void injectSniperUI();
   scan();
   const obs = new MutationObserver(() => scan());
   obs.observe(document.body, { childList: true, subtree: true });
