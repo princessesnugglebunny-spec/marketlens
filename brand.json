@@ -1,13 +1,22 @@
 {
-  "name": "MarketLens",
-  "slug": "marketlens",
-  "tagline": "See the deal. Skip the noise.",
-  "domain": "marketlens.example",
-  "colors": {
-    "primary": "#12805c",
-    "accent": "#38bdf8",
-    "dark": "#0f172a",
-    "light": "#f8fafc"
+  "$schema": "brand-tokens-v1",
+  "original": {
+    "name": "Marketplace Assistant",
+    "slug": "marketplace-assistant",
+    "org": "marketlens",
+    "domain": "marketplace.example.com",
+    "package": "marketplace_assistant",
+    "namespace": "MarketplaceAssistant",
+    "colors": { "primary": "#000000", "accent": "#ffffff" }
   },
-  "packagePrefix": "mlf"
+  "target": {
+    "name": "MarketLens",
+    "slug": "marketlens",
+    "org": "marketlens",
+    "domain": "marketlens.example",
+    "package": "marketlens",
+    "namespace": "MarketLens",
+    "tagline": "See the deal. Skip the noise.",
+    "colors": { "primary": "#12805c", "accent": "#38bdf8" }
+  }
 }
