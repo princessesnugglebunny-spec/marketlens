@@ -12,7 +12,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write .",
-    "postbuild": "cp manifest.json dist/ && cp -r data dist/ && cp -r assets dist/ 2>/dev/null; true"
+    "postbuild": "cp manifest.json dist/ && mkdir -p dist/data dist/assets && cp data/places.json data/places-au.json data/places-nz.json dist/data/ && cp -r assets/* dist/assets/ 2>/dev/null; true"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.1",

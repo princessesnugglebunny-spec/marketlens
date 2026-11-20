@@ -10,6 +10,8 @@ import { injectDraftPanel } from './draft-panel';
 import { injectFormFillButton } from './assist/formfill';
 import { injectReplyDrafts } from './assist/replydraft';
 import { initAssistMode } from './assist/assistmode';
+import { injectBulkImportButton } from './assist/bulkimportui';
+import { injectConvoBrowser } from './assist/convoBrowser';
 
 const ITEM_LINK = 'a[href*="/marketplace/item/"]';
 
@@ -41,7 +43,7 @@ async function loadSettings(): Promise<void> {
 
 async function loadCityTable(): Promise<void> {
   try {
-    for (const file of ['data/places.json', 'data/aliases.json', 'data/places-au.json', 'data/places-nz.json']) {
+    for (const file of ['data/places.json', 'data/places-au.json', 'data/places-nz.json']) {
       const url = chrome.runtime.getURL(file);
       const res = await fetch(url);
       const data = (await res.json()) as Record<string, [number, number]>;
@@ -239,6 +241,8 @@ async function init(): Promise<void> {
   void injectFormFillButton();
   void injectReplyDrafts();
   void initAssistMode();
+  injectBulkImportButton();
+  void injectConvoBrowser();
   scan();
   const obs = new MutationObserver(() => scan());
   obs.observe(document.body, { childList: true, subtree: true });
